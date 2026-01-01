@@ -135,6 +135,11 @@ float hammingDistanceBytes(const Genome &genome1, const Genome &genome2)
 // ToDo: optimize by approximation for long genomes
 float genomeSimilarity(const Genome &g1, const Genome &g2)
 {
+    // If genomes have different lengths, use Jaro-Winkler (method 0) which handles unequal lengths
+    if (g1.size() != g2.size()) {
+        return jaro_winkler_distance(g1, g2);
+    }
+
     switch (p.genomeComparisonMethod) {
     case 0:
         return jaro_winkler_distance(g1, g2);
