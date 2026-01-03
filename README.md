@@ -2,10 +2,7 @@
 
 ## Status
 
-This project is transitioning to maintenance-only. Thanks to all who contributed 
-improvements to this project. We will continue to welcome bug fixes that enable this
-program to compile and execute, and we welcome discussions about this program
-and related topics in the Issues section.
+This project is a fork with some of my own changes and updates. See the release page for changes.
 
 ## What is this?
 

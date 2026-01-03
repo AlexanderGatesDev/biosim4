@@ -163,9 +163,19 @@ float genomeSimilarity(const Genome &g1, const Genome &g2)
         float len2 = (float)g2.size();
         float lengthRatio = std::min(len1, len2) / std::max(len1, len2);
         
-        // Apply penalty: 80% weight on similarity, 20% on length ratio
-        // This prevents genomes from diverging too much in length
-        similarity = similarity * 0.8f + lengthRatio * 0.2f;
+        // Add absolute length penalty: penalize genomes that deviate from initial length
+        // This creates selection pressure to maintain lengths near the starting value
+        float initialLength = (float)p.genomeInitialLengthMin;
+        float avgLength = (len1 + len2) / 2.0f;
+        float lengthDeviation = std::abs(avgLength - initialLength) / initialLength;
+        // Penalty increases quadratically with deviation (0.0 at initial, 1.0 at 2x initial)
+        float absolutePenalty = std::min(lengthDeviation / 2.0f, 1.0f);
+        float absoluteBonus = 1.0f - absolutePenalty;
+        
+        // Apply penalties: 30% similarity, 35% relative length ratio, 35% absolute length bonus
+        // Strengthened length penalties to better prevent genome length growth
+        // This triple penalty system prevents both relative divergence and absolute growth
+        similarity = similarity * 0.3f + lengthRatio * 0.35f + absoluteBonus * 0.35f;
         
         return similarity;
     }
