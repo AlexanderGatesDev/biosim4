@@ -1,5 +1,7 @@
 # biosim4
 
+Try out a Rust refactor here - https://github.com/AlexanderGatesDev/biosimRust
+
 ## Status
 
 This project is a fork with enhancements focused on improving variable-length genome stability and preventing artificial genome growth. Key improvements include:
